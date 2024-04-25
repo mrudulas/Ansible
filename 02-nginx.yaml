@@ -1,6 +1,6 @@
 - name: install and run nginx
   hosts: web
-  become: yes
+  become: yes # equal to -b in adhoc commands, getting root access
   tasks:
     - name: install nginx
       ansible.builtin.dnf:
@@ -11,3 +11,6 @@
         name: nginx
         state: started
         enabled: yes
+
+
+        # vvv like ansible-playbook vvv -i inventory.ini .... vvv is used to debug
