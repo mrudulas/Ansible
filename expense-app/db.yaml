@@ -39,5 +39,5 @@
       msg: "status of mysql {{ mysql_conn_op }}"
   
   - name: setup root db_password
-    ansible.builtin.coomand: "mysql_secure_installation --set-root-pass {{ db_password }}"
+    ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ db_password }}"
     when: mysql_conn_op.failed is true
