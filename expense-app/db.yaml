@@ -1,0 +1,43 @@
+- name: setup db server
+  hosts: db
+  become: yes
+  vars:
+    login_host: db.hkas.cloud
+  vars_prompt:
+  - name: db_password
+    private: no
+    prompt: ENter mysql root db_password
+  tasks:
+  - name: install mysql server
+    ansible.builtin.dnf:
+      name: mysql-server
+      state: latest
+
+  - name: Start and Enable mysql server
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes
+  - name: install python dependencies for mysql
+    ansible.builtin.pip:
+      name:
+      - PyMysql
+      - cryptography
+      executable: pip3.9
+
+  - name : check db connection
+    community.mysql.mysql_info:
+      login_user: root
+      login_host: {{ login_host }}
+      login_password: {{ db_password }}
+      filter: version
+    ignore_errors: yes
+    register: mysql_conn_op
+
+  - name: print output
+    ansible.builtin.debug:
+      msg: "status of mysql {{ mysql_conn_op }}"
+  
+  - name: setup root db_password
+    ansible.builtin.coomand: "mysql_secure_installation --set-root-pass {{ db_password }}"
+    when: mysql_conn_op.failed is true
