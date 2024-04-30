@@ -1,0 +1,51 @@
+-name: compare number
+  hosts: localhost
+  vars_prompt: # always prompt value treated as text only
+    -name: number
+      prompt: Please enter number
+      private: no
+    tasks:
+      -name: number is < 10
+        ansible.buildtin.debug:
+          msg: "GIven number {number} is less than 10"
+        when: number | int < 10
+      -name: number is > 10
+        ansible.buildtin.debug:
+          msg: "GIven number {number} is greater than 10"
+        when: number | int >=  10
+      -name: print default value
+        ansible.buildtin.debug:
+          msg: "GIven number {number | default('I m not a number, default null')}"" 
+  -name: uppercase
+    hosts: localhost
+    vars:
+      greetings: i m new to ansible  
+    tasks:
+      -name: print uppercase
+        ansible.buildtin.debug:
+          msg: "{{greetings | upper}}""
+
+-name: min max
+    hosts: localhost
+    vars:
+      ages: [23,45,34,12,37,76,89,34,10,9]  
+    tasks:
+      -name: print uppercase
+        ansible.buildtin.debug:
+          msg: " min age {{ages | min }} , max age {{ages | max }}, unique: {{ages | unique}}"
+-name: convert dict to list
+    hosts: localhost
+    vars:
+      user: # this is called dict or map or key/value pair
+        name: user1
+        rollno: 123
+        ph: 1234567  
+    tasks:
+      -name: before converion
+        ansible.buildtin.debug:
+          msg: " Before convert: {{ user }}"
+      -name: after conversion
+        ansible.buildtin.debug:
+          msg: " Before convert: {{ user | dict2items }}"
+
+
