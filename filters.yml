@@ -15,7 +15,7 @@
     when: number | int >=  10
   - name: print default value
     ansible.builtin.debug:
-      msg: "GIven number {number | default('I m not a number, default null')}" 
+      msg: "GIven number {{number | default('I m not a number, default null')}}" 
 
 - name: uppercase
   hosts: localhost
