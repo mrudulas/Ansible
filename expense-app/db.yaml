@@ -28,8 +28,8 @@
   - name : check db connection
     community.mysql.mysql_info:
       login_user: root
-      login_host: {{ login_host }}
-      login_password: {{ db_password }}
+      login_password: "{{ db_password }}"
+      login_host: "adas"
       filter: version
     ignore_errors: yes
     register: mysql_conn_op
