@@ -16,7 +16,7 @@
   - name: print default value
     ansible.builtin.debug:
       msg: "GIven number {number | default('I m not a number, default null')}" 
-      
+
 - name: uppercase
   hosts: localhost
   vars:
@@ -34,19 +34,19 @@
   - name: print uppercase
     ansible.builtin.debug:
       msg: " min age {{ages | min }} , max age {{ages | max }}, unique: {{ages | unique}}"
-  - name: convert dict to list
-    hosts: localhost
-    vars:
-      user: # this is called dict or map or key/value pair
-        name: user1
-        rollno: 123
-        ph: 1234567  
-    tasks:
-    - name: before converion
-      ansible.builtin.debug:
-        msg: " Before convert: {{ user }}"
-    - name: after conversion
-      ansible.builtin.debug:
-        msg: " Before convert: {{ user | dict2items }}"
+- name: convert dict to list
+  hosts: localhost
+  vars:
+    user: # this is called dict or map or key/value pair
+      name: user1
+      rollno: 123
+      ph: 1234567  
+  tasks:
+  - name: before converion
+    ansible.builtin.debug:
+      msg: " Before convert: {{ user }}"
+  - name: after conversion
+    ansible.builtin.debug:
+      msg: " Before convert: {{ user | dict2items }}"
 
 
